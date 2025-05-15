@@ -3,7 +3,7 @@ import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import "./featured.css"
 const Featured = () => {
     return (
-        <div className=" featured">
+        <div className="bg-fixed featured">
             <div className="py-10 bg-text ">
                 <SectionTitle
                   subHeading={"--- check it out ---"}
@@ -20,7 +20,7 @@ const Featured = () => {
                      <p className="py-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias autem amet omnis, porro laboriosam deleniti magnam sit tenetur tempora temporibus est excepturi facilis vitae corporis eveniet incidunt inventore quibusdam. Porro!
 
                      </p>
-                     <button className=" btn btn-outline"> Order Now</button>
+                     <button className="border-0 border-b-4 btn btn-outline"> Order Now</button>
                 </div>
             </div>
         </div>

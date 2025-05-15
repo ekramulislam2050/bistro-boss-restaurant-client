@@ -3,6 +3,7 @@ import Category from "../Category/Category";
 import ChefService from "../ChefService/ChefService";
 import Featured from "../Featured/Featured";
 import PopularMenu from "../PopularMenu/PopularMenu";
+import Testimonials from "../Testimonials/Testimonials";
 
  
 
@@ -14,6 +15,7 @@ const Home = () => {
              <ChefService></ChefService>
              <PopularMenu></PopularMenu>
              <Featured></Featured>
+             <Testimonials></Testimonials>
         </div>
     );
 };
