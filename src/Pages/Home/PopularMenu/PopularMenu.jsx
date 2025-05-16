@@ -33,7 +33,11 @@ const PopularMenu = () => {
                         item={item}
                     ></MenuItem>)
                 }
+               
             </div>
+              <div className="flex justify-center py-3">
+                     <button className="text-orange-400 border-0 border-b-4 border-orange-300 btn rounded-xl ">VIEW FULL MENU</button>
+                 </div>
         </section>
 
     );

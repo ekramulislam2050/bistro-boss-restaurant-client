@@ -56,7 +56,7 @@ const ChefRecommends = () => {
                             <img src={data.image} alt="" />
                             <h3 className="text-xl font-semibold">{data.name}</h3>
                              <p className="py-2">{data.recipe}</p>
-                            <button className="border-0 border-b-4 border-orange-300 rounded-b-xl btn">Add To Cart</button>
+                            <button className="text-orange-400 border-0 border-b-4 border-orange-300 rounded-b-xl btn">Add To Cart</button>
                         </SwiperSlide>)
                     }
 

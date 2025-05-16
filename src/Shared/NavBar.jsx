@@ -1,10 +1,17 @@
+import { NavLink } from "react-router-dom";
 
 
 const NavBar = () => {
     const navOptions = <>
-        <li><a>Item 1</a></li>
-        <li><a>Parent</a></li>
-        <li><a>Item 3</a></li>
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/">Home</NavLink></li>
+        
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Contact Us</NavLink></li>
+        
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Dashboard</NavLink></li>
+        
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"  } to="/menu">Our Menu</NavLink></li>
+        
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Our Shop</NavLink></li>
 
     </>
     return (
