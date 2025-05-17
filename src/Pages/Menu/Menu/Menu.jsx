@@ -1,8 +1,5 @@
 import { Helmet } from "react-helmet";
-
- 
-
- 
+import Cover from "../../../Shared/Cover/Cover";
 
 const Menu = () => {
     return (
@@ -10,7 +7,7 @@ const Menu = () => {
             <Helmet>
                  <title>Bistro Boss Restaurant | OurMenu</title>
             </Helmet>
-            <h2>this is menu page</h2>
+             <Cover></Cover>
         </div>
     );
 };
