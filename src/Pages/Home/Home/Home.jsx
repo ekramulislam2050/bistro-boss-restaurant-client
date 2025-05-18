@@ -1,5 +1,6 @@
 
-import { Helmet } from "react-helmet";
+
+import { Helmet } from "react-helmet-async";
 import Banner from "../Banner/Banner";
 import Category from "../Category/Category";
 import ChefRecommends from "../ChefRecommends/ChefRecommends";

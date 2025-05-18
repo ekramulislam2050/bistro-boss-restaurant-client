@@ -1,6 +1,6 @@
 import img from "../../assets/menu/banner3.jpg"
 import "../../Pages/Home/Featured/featured.css"
-import { Parallax, Background } from 'react-parallax';
+import { Parallax } from 'react-parallax';
 const Cover = () => {
     return (
          
