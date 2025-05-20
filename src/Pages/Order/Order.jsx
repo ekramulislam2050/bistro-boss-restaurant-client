@@ -15,15 +15,16 @@ const Order = () => {
     const [tabIndex, setTabIndex] = useState(initialCategory)
     const [menuData] = CoverMenu()
     
-    console.log(category)
+    // console.log(menuData)
     const drinks = menuData.filter(item => item.category === "drinks")
     const desserts = menuData.filter(item => item.category === "dessert")
     const pizza = menuData.filter(item => item.category === "pizza")
     const salads = menuData.filter(item => item.category === "salad")
-    const soups = menuData.filter(item => item.category === "soups")
+    const soups = menuData.filter(item => item.category === "soup")
+    // console.log(soups)
     return (
         <div>
-            <Cover img={orderShopImg} title={"Our Shop"}></Cover>
+            <Cover img={orderShopImg} title={"Order food"}></Cover>
 
             <div className="py-10 text-center">
                 <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>

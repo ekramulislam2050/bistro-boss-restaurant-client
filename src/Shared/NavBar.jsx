@@ -11,7 +11,7 @@ const NavBar = () => {
         
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"  } to="/menu">Our Menu</NavLink></li>
         
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/order"}>Order Food</NavLink></li>
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/order/salad"}>Order Food</NavLink></li>
 
     </>
     return (
