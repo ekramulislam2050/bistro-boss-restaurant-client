@@ -7,6 +7,7 @@ import CoverMenu from "../../Hook/CoverMenu";
 
 import OrderTab from "../../Components/OrderTab/OrderTab";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Order = () => {
     const categories = ["salad","pizza","soups","desserts","drinks"]
@@ -24,6 +25,9 @@ const Order = () => {
     // console.log(soups)
     return (
         <div>
+             <Helmet>
+                  <title>order page</title>
+             </Helmet>
             <Cover img={orderShopImg} title={"Order food"}></Cover>
 
             <div className="py-10 text-center">

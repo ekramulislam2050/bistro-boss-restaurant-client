@@ -1,16 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 const NavBar = () => {
     const navOptions = <>
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/">Home</NavLink></li>
-        
+
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Contact Us</NavLink></li>
-        
+
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Dashboard</NavLink></li>
-        
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"  } to="/menu">Our Menu</NavLink></li>
-        
+
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/menu">Our Menu</NavLink></li>
+
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/order/salad"}>Order Food</NavLink></li>
 
     </>
@@ -31,12 +31,14 @@ const NavBar = () => {
             </div>
             <div className="hidden navbar-center lg:flex">
                 <ul className="px-1 menu menu-horizontal">
-                   {navOptions}
-                     
+                    {navOptions}
+
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className=" btn">Button</a>
+                <Link to={"/login"}>
+                    <button className="btn">Login</button>
+                </Link>
             </div>
         </div>
     );

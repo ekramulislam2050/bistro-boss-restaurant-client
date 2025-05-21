@@ -19,7 +19,7 @@ const Menu = () => {
     return (
         <div>
             <Helmet> 
-                <title>Bistro Boss Restaurant | OurMenu</title>
+                <title>OurMenu page</title>
             </Helmet>
             <Cover img={bannerImg} title={'our menu'}></Cover>
              <SectionTitle
