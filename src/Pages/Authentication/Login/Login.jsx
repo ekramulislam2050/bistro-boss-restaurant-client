@@ -1,16 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
+
 
 
 const Login = () => {
      const captchaRef = useRef(null)
      const [disable,setDisable]=useState(true)
+     const {signIn}=useContext(AuthContext)
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.password.value
         console.log(email, password)
+        signIn(email,password)
+        .then(data=>{
+            const user = data.user
+            console.log(user)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
     useEffect(()=>{
             loadCaptchaEnginge(6); 
@@ -48,11 +60,13 @@ const Login = () => {
                             </div>
                              <div className="">
                                    <input type="text" className="mb-3 input" placeholder="type your captcha " name="captcha" ref={captchaRef}/>
-                                  <a className="w-full mb-3 btn link link-hover btn-xs btn-outline" onClick={handleCaptcha}>Validate</a>
+                                  <button className="w-full mb-3 btn link link-hover btn-xs btn-outline" onClick={handleCaptcha}>Validate</button>
                              </div>
                                 {/* for captcha-----end-------- */}
                             <div>
-                                <a className="link link-hover">Forgot password?</a>
+                               <Link to={"/signUp"}>
+                                   <button className="text-red-500 link link-hover">Have an account?Go to sign Up</button>
+                               </Link>
                             </div>
                             <button className="mt-4 btn btn-neutral" disabled={disable}>Login</button>
                         </fieldset>
