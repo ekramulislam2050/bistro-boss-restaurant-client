@@ -1,12 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
 
 const Login = () => {
+    const location = useLocation()
+    // console.log(location)
+    const from = location?.state?.from?.pathname || "/";
+    // console.log(from)
      const navigate=useNavigate()
     const [disable, setDisable] = useState(true)
     const { signIn } = useContext(AuthContext)
@@ -37,7 +41,8 @@ const Login = () => {
                                                     `
                         }
                     });
-                    navigate("/")
+                  
+                    navigate(from,{replace:true})
                 }
 
             })
