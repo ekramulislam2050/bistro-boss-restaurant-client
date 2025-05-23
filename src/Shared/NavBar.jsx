@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const NavBar = () => {
+    const { user, logOut } = useContext(AuthContext)
     const navOptions = <>
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/">Home</NavLink></li>
 
@@ -12,8 +16,32 @@ const NavBar = () => {
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/menu">Our Menu</NavLink></li>
 
         <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/order/salad"}>Order Food</NavLink></li>
+        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/secretPage"}>Secret page</NavLink></li>
 
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                Swal.fire({
+                    title: "logOut  successful",
+                    showClass: {
+                        popup: `
+                                animate__animated
+                                animate__fadeInUp
+                                animate__faster
+                                                        `
+                    },
+                    hideClass: {
+                        popup: `
+                                animate__animated
+                                animate__fadeOutDown
+                                animate__faster
+                                `
+                    }
+                });
+            })
+    }
     return (
         <div className="fixed z-10 max-w-screen-xl shadow-sm opacity-40 bg-base-200 navbar">
             <div className="navbar-start">
@@ -36,12 +64,15 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to={"/login"}>
-                    <button className="btn">Login</button>
-                </Link>
-                <Link to={"/logOut"}>
-                    <button className="btn">LogOut</button>
-                </Link>
+                {
+                    user ?
+                        <button className="btn" onClick={handleLogOut}>LogOut</button>
+                        : <Link to={"/login"}>
+                            <button className="btn">Login</button>
+                        </Link>
+                }
+
+
             </div>
         </div>
     );
