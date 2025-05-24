@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { IoCart } from "react-icons/io5";
+import useCart from "../Hook/useCart";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
+    const [cart]=useCart()
+    
     const navOptions = <>
         <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to="/">Home</NavLink></li>
 
@@ -21,7 +24,7 @@ const NavBar = () => {
 
         <li>
             <button className=" btn">
-                <IoCart  className="text-2xl "/> <div className="text-xl text-black badge badge-secondary">+99</div>
+                <IoCart  className="text-2xl "/> <div className="text-xl text-black badge badge-secondary">+{cart.length}</div>
             </button>
         </li>
 
