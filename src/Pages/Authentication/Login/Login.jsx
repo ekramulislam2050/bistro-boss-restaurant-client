@@ -11,7 +11,7 @@ const Login = () => {
     // console.log(location)
     const from = location?.state?.from?.pathname || "/";
     // console.log(from)
-     const navigate=useNavigate()
+    const navigate = useNavigate()
     const [disable, setDisable] = useState(true)
     const { signIn } = useContext(AuthContext)
     const handleSubmit = (e) => {
@@ -23,26 +23,18 @@ const Login = () => {
         signIn(email, password)
             .then(data => {
                 const user = data.user
+                console.log(user)
                 if (user) {
                     Swal.fire({
-                        title: "user successfully created",
-                        showClass: {
-                            popup: `
-                                    animate__animated
-                                    animate__fadeInUp
-                                    animate__faster
-                                    `
-                        },
-                        hideClass: {
-                            popup: `
-                                    animate__animated
-                                    animate__fadeOutDown
-                                    animate__faster
-                                                    `
-                        }
+                        title: user.displayName,
+                        text: "logIn successful",
+                        imageUrl: user.photoURL,
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: "Custom image"
                     });
-                  
-                    navigate(from,{replace:true})
+
+                    navigate(from, { replace: true })
                 }
 
             })

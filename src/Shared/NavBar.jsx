@@ -2,21 +2,28 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
-
+import { IoCart } from "react-icons/io5";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
     const navOptions = <>
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/">Home</NavLink></li>
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to="/">Home</NavLink></li>
 
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Contact Us</NavLink></li>
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"}>Contact Us</NavLink></li>
 
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"}>Dashboard</NavLink></li>
+        <li><NavLink className={"uppercase  text-white text-[15px] font-medium"}>Dashboard</NavLink></li>
 
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to="/menu">Our Menu</NavLink></li>
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to="/menu">Our Menu</NavLink></li>
 
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/order/salad"}>Order Food</NavLink></li>
-        <li><NavLink className={"uppercase text-[#023020] text-[15px] font-medium"} to={"/secretPage"}>Secret page</NavLink></li>
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to={"/order/salad"}>Order Food</NavLink></li>
+
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to={"/secretPage"}>Secret page</NavLink></li>
+
+        <li>
+            <button className=" btn">
+                <IoCart  className="text-2xl "/> <div className="text-xl text-black badge badge-secondary">+99</div>
+            </button>
+        </li>
 
     </>
 
@@ -43,7 +50,7 @@ const NavBar = () => {
             })
     }
     return (
-        <div className="fixed z-10 max-w-screen-xl shadow-sm opacity-40 bg-base-200 navbar">
+        <div className="fixed z-10 max-w-screen-xl text-white bg-black shadow-sm opacity-60 navbar">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -66,6 +73,7 @@ const NavBar = () => {
             <div className="navbar-end">
                 {
                     user ?
+
                         <button className="btn" onClick={handleLogOut}>LogOut</button>
                         : <Link to={"/login"}>
                             <button className="btn">Login</button>

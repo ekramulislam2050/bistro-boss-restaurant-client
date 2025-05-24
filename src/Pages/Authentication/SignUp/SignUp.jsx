@@ -6,44 +6,49 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext)
-    const navigate=useNavigate()
-    const {
-        register,
-        handleSubmit,
-
-        formState: { errors },
-
-    } = useForm()
+    const { createUser, updateUserInFo } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
     const onSubmit = (data) => {
+        console.log(data)
         createUser(data.email, data.password)
             .then(result => {
                 if (result.user) {
-                    Swal.fire({
-                        title: "user successfully created",
-                        showClass: {
-                            popup: `
+                    updateUserInFo(data.name, data.photoUrl)
+                        .then(() => {
+                            Swal.fire({
+                                title: "user successfully created",
+                                showClass: {
+                                    popup: `
                                         animate__animated
                                         animate__fadeInUp
                                         animate__faster
                                         `
-                        },
-                        hideClass: {
-                            popup: `
+                                },
+                                hideClass: {
+                                    popup: `
                                     animate__animated
                                     animate__fadeOutDown
                                     animate__faster
                                     `
-                        }
-                    });
-                    navigate("/login")
+                                }
+                            });
+
+                            reset()
+                            navigate("/login")
+
+                        })
+                        .catch((err) => {
+
+                        })
+
+
                 }
-                
-            })
-            .catch(err => {
+
 
             })
+           
 
     }
 
@@ -61,9 +66,14 @@ const SignUp = () => {
                 <div className="w-full max-w-sm shadow-2xl card bg-base-100 shrink-0">
                     <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
                         <fieldset className="fieldset">
+
                             <label className="label">Name</label>
                             <input type="text" className="input" placeholder="Name"   {...register("name", { required: "name is required" })} />
                             {errors.name && <span className="text-red-500">{errors.name.message}</span>}
+
+                            <label className="label">PhotoUrl</label>
+                            <input type="text" className="input" placeholder="PhotoUrl"   {...register("photoUrl", { required: "photoUrl is required" })} />
+                            {errors.photoUrl && <span className="text-red-500">{errors.photoUrl.message}</span>}
 
                             <label className="label">Email</label>
                             <input type="email" className="input" placeholder="Email"  {...register("email", { required: "email is required" })} />
