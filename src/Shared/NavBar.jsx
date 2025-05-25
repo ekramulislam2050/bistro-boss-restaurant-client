@@ -14,7 +14,7 @@ const NavBar = () => {
 
         <li><NavLink className={"uppercase text-white text-[15px] font-medium"}>Contact Us</NavLink></li>
 
-        <li><NavLink className={"uppercase  text-white text-[15px] font-medium"}>Dashboard</NavLink></li>
+        <li><NavLink className={"uppercase  text-white text-[15px] font-medium"} to={'/dashboard/cart'}>Dashboard</NavLink></li>
 
         <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to="/menu">Our Menu</NavLink></li>
 

@@ -14,6 +14,7 @@ import useAuth from "../../../Hook/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import useCart from "../../../Hook/useCart";
 
 
 const ChefRecommends = () => {
@@ -22,6 +23,7 @@ const ChefRecommends = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const axiosSecure = useAxiosSecure()
+    const [,refetch]=useCart()
     const handleAddToCart = (food) => {
 
         if (user && user.email) {
@@ -41,7 +43,9 @@ const ChefRecommends = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                          refetch()
                     }
+                  
                 })
                 .catch(err => {
                     Swal.fire({
