@@ -4,39 +4,55 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAuth from "../../../Hook/useAuth";
 
 const SignUp = () => {
     const { createUser, updateUserInFo } = useContext(AuthContext)
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
+    const axiosPublic = useAxiosPublic()
+    const {  googleSignIn}=useAuth()
 
     const onSubmit = (data) => {
-        console.log(data)
         createUser(data.email, data.password)
             .then(result => {
                 if (result.user) {
                     updateUserInFo(data.name, data.photoUrl)
                         .then(() => {
-                            Swal.fire({
-                                title: "user successfully created",
-                                showClass: {
-                                    popup: `
+                            const userInfo = {
+                                name: data.name,
+                                email: data.email,
+
+                            }
+                            axiosPublic.post("/users", userInfo)
+                                .then((res) => {
+                                    if (res.data.insertedId) {
+                                        Swal.fire({
+                                            title: "user successfully created",
+                                            showClass: {
+                                                popup: `
                                         animate__animated
                                         animate__fadeInUp
                                         animate__faster
                                         `
-                                },
-                                hideClass: {
-                                    popup: `
+                                            },
+                                            hideClass: {
+                                                popup: `
                                     animate__animated
                                     animate__fadeOutDown
                                     animate__faster
                                     `
-                                }
-                            });
+                                            }
+                                        });
+                                        reset()
+                                        navigate("/login")
+                                    }
+                                })
 
-                            reset()
-                            navigate("/login")
+
+
+
 
                         })
                         .catch((err) => {
@@ -48,10 +64,26 @@ const SignUp = () => {
 
 
             })
-           
+
 
     }
+    
+//    handle google ------------
 
+const handleGoogle=()=>{
+      googleSignIn()
+    .then(res=>{
+        console.log(res.user)
+        const userInfo={
+            name:res.user?.displayName,
+            email:res.user?.email
+        }
+        axiosPublic.post("/users",userInfo)
+        .then(res=>{
+            console.log(res.data)
+        })
+    })
+}
 
     return (
         <div className="min-h-screen hero bg-base-200">
@@ -101,6 +133,11 @@ const SignUp = () => {
                             <input type="submit" className="mt-4 btn btn-neutral" value={'signUp'} />
 
                         </fieldset>
+                        {/* divider----------- */}
+                        <div className="divider"></div>
+                        <div>
+                            <button className="btn-primary btn" onClick={handleGoogle}>Google</button>
+                        </div>
                     </form>
                 </div>
             </div>
