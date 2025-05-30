@@ -12,7 +12,7 @@ const SignUp = () => {
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const axiosPublic = useAxiosPublic()
-    const {  googleSignIn}=useAuth()
+    const { googleSignIn } = useAuth()
 
     const onSubmit = (data) => {
         createUser(data.email, data.password)
@@ -67,23 +67,23 @@ const SignUp = () => {
 
 
     }
-    
-//    handle google ------------
 
-const handleGoogle=()=>{
-      googleSignIn()
-    .then(res=>{
-        console.log(res.user)
-        const userInfo={
-            name:res.user?.displayName,
-            email:res.user?.email
-        }
-        axiosPublic.post("/users",userInfo)
-        .then(res=>{
-            console.log(res.data)
-        })
-    })
-}
+    //    handle google ------------
+
+    const handleGoogle = () => {
+        googleSignIn()
+            .then(res => {
+                console.log(res.user)
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email
+                }
+                axiosPublic.post("/users", userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            })
+    }
 
     return (
         <div className="min-h-screen hero bg-base-200">

@@ -12,6 +12,8 @@ import SecretPage from "../Pages/Authentication/SecretPage/SecretPage";
 import DashBoard from "../MainLayOut/DashBoard";
 import Cart from "../Pages/DashBoard/Cart/Cart";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
+import AddItem from "../Pages/DashBoard/AddItem/AddItem";
+import AdminRouter from "./adminRouter";
  
 
 export const router = createBrowserRouter([
@@ -49,7 +51,10 @@ export const router = createBrowserRouter([
     {
         path:"/dashboard",
         element:<PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
+   
+      
         children:[
+            // normal user route-------------
             {
                 path:"/dashboard/cart",
                 element:<Cart></Cart>
@@ -58,6 +63,10 @@ export const router = createBrowserRouter([
             {
                 path:"/dashboard/allUsers",
                 element:<AllUsers></AllUsers>
+            },
+            {
+                path:"/dashboard/addItem",
+                element:<AdminRouter><AddItem></AddItem></AdminRouter>
             }
         ]
     }

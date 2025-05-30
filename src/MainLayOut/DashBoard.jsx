@@ -1,11 +1,13 @@
 import { FaAd, FaBook, FaCalendar, FaHistory, FaHome, FaJediOrder, FaList, FaShoppingCart, FaUser, FaUtensils } from "react-icons/fa";
 import { MdOutlineHomeWork } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hook/useAdmin";
 
 
 
 const DashBoard = () => {
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
+    console.log(isAdmin)
     return (
         <div className="flex ">
             {/* side bar-------- */}
@@ -20,7 +22,7 @@ const DashBoard = () => {
                                 </NavLink>
                             </li>
                             <li className="p-4 uppercase menu">
-                                <NavLink to={"/dashboard/addItems"}>
+                                <NavLink to={"/dashboard/addItem"}>
                                  <FaUtensils></FaUtensils>
                                     Add items
                                 </NavLink>

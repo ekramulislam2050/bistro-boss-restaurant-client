@@ -21,6 +21,7 @@ const AllUsers = () => {
 
     // make admin-----------
     const handleMakeAdmin = (user) => {
+       
         axiosSecure.patch(`/users/admin/${user._id}`)
             .then(res => {
                 if (res.data.modifiedCount) {
@@ -39,6 +40,7 @@ const AllUsers = () => {
     //  delete user------------
 
     const handleDelete = (user) => {
+     
 
         Swal.fire({
             title: "Are you sure?",
@@ -49,10 +51,12 @@ const AllUsers = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
+        
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/users/${user_id}`)
+                axiosSecure.delete(`/users/${user._id}`)
                     .then(res => {
+                   
                         if (res.data.deletedCount > 0) {
                             refetch()
                             Swal.fire({
