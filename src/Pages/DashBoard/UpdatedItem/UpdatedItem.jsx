@@ -1,17 +1,51 @@
 import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import Swal from "sweetalert2";
 
-
+const imgHostingKey = import.meta.env.VITE_img_hosting_key
+const imgHostingURL = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostingKey}`
 
 const UpdatedItem = () => {
+
     const data = useLoaderData()
-    const { name, category, price, recipe } = data[0]
-    const {register,handleSubmit}=useForm()
-     const onSubmit=()=>{
-        
-     }
-       
+    const { name, category, price, recipe,_id } = data[0]
+    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
+    const { register, handleSubmit } = useForm()
+    const onSubmit = async (data) => {
+          console.log(data)
+        // img upload to imgBB----------
+        const imgFile = { image: data.image[0] }
+        const res = await axiosPublic.post(imgHostingURL, imgFile, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        })
+        if (res.data.success) {
+            const itemInfo = {
+                name: data.name,
+                price: parseFloat(data.price),
+                category: data.category,
+                recipe: data.recipe,
+                image: res.data.data.display_url
+            }
+            const itemData = await axiosSecure.patch(`/menu/${_id}`, itemInfo)
+            // console.log(itemData)
+            if (itemData.data.modifiedCount>0) {
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Item Data has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+    }
     return (
         <div className="px-4 py-8 md:px-8 lg:px-16">
             <SectionTitle heading="update an item" subHeading="---item info---" />
@@ -83,11 +117,11 @@ const UpdatedItem = () => {
 
                 {/* Submit Button */}
                 <button type="submit" className="flex items-center mt-4 btn btn-primary">
-                   update item
+                    update item
                 </button>
             </form>
         </div>
     );
-};
+}
 
 export default UpdatedItem;
