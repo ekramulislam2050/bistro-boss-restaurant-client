@@ -2,11 +2,12 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../Hook/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 
 const Cart = () => {
-    const [cart,refetch] = useCart()
+    const [cart, refetch] = useCart()
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
     const axiosSecure = useAxiosSecure()
     const handleDelete = (id) => {
@@ -38,10 +39,16 @@ const Cart = () => {
     }
     return (
         <div>
-            <div className="flex justify-evenly">
+            <div className="flex mt-5 justify-evenly">
                 <h2 className="text-3xl">TotalItem : {cart.length}</h2>
                 <h2 className="text-3xl">TotalPrice : {totalPrice}</h2>
-                <button className="upperCase btn btn-primary">Pay</button>
+                {
+                    cart.length ? <Link to={"/dashboard/payment"}>
+                        <button className="upperCase btn btn-primary">Pay</button>
+                    </Link>
+                        :
+                        <button className="upperCase btn btn-primary" disabled>Pay</button>
+                }
             </div>
             {/* table------------ */}
             <div className="overflow-x-auto">
