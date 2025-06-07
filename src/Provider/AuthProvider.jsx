@@ -36,28 +36,62 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
 
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         setUser(currentUser)
+
+    //         if (currentUser) {
+    //             const userInfo = {
+    //                 email: currentUser.email
+    //             }
+    //             axiosPublic.post("/jwt", userInfo)
+    //                 .then((res) => {
+
+    //                     if (res.data.token) {
+    //                         localStorage.setItem("access_token", res.data.token)
+    //                     } else {
+    //                         localStorage.removeItem("access_token")
+    //                     }
+    //                 })
+    //                   setLoading(false)
+    //         }
+
+    //     })
+    //     return () => unsubscribe()
+    // }, [axiosPublic])
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
 
             if (currentUser) {
-                const userInfo = {
-                    email: currentUser.email
-                }
+                const userInfo = { email: currentUser.email }
+
                 axiosPublic.post("/jwt", userInfo)
                     .then((res) => {
-
                         if (res.data.token) {
                             localStorage.setItem("access_token", res.data.token)
                         } else {
                             localStorage.removeItem("access_token")
                         }
                     })
+                    .catch((err) => {
+                        console.error("JWT Error:", err)
+                        localStorage.removeItem("access_token")
+                    })
+                    .finally(() => {
+                        setLoading(false) 
+                    })
+
+            } else {
+                
+                localStorage.removeItem("access_token")
+                setLoading(false)
             }
-            setLoading(false)
         })
+
         return () => unsubscribe()
     }, [axiosPublic])
+
 
     const userInfo = {
         auth,

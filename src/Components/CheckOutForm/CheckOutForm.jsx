@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useCart from "../../Hook/useCart"
 import useAuth from "../../Hook/useAuth";
+import Swal from "sweetalert2";
+
 const CheckOutForm = () => {
     const [error, setError] = useState('')
     const [clientSecret, setClientSecret] = useState()
@@ -11,7 +13,8 @@ const CheckOutForm = () => {
     const stripe = useStripe()
     const element = useElements()
     const axiosSecure = useAxiosSecure()
-    const [cart] = useCart()
+    const [cart, refetch] = useCart()
+
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
     const handleSubmit = async (e) => {
@@ -56,14 +59,40 @@ const CheckOutForm = () => {
                 setTransactionId(paymentIntent.id)
             }
         }
+
+        // payment save to database-----------
+        const payment = {
+            email: user.email,
+            price: totalPrice,
+            date: new Date(),//TODO:convert to utc time by using moment js
+            cartIds: cart.map(item => item._id),
+            itemIds: cart.map(item => item.itemId),
+            status: "pending"
+        }
+        const res = await axiosSecure.post("/payment", payment)
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
     }
 
     useEffect(() => {
-        axiosSecure.post("/create-payment-intent", { price: totalPrice })
-            .then(res => {
-                console.log(res.data.clientSecret)
-                setClientSecret(res.data.clientSecret)
-            })
+        if (totalPrice > 0) {
+            axiosSecure.post("/create-payment-intent", { price: totalPrice })
+                .then(res => {
+                    console.log(res.data.clientSecret)
+                    setClientSecret(res.data.clientSecret)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }, [axiosSecure, totalPrice])
 
     return (

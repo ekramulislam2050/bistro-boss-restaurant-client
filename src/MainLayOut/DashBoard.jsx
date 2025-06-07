@@ -6,8 +6,15 @@ import useAdmin from "../Hook/useAdmin";
 
 
 const DashBoard = () => {
-    const [isAdmin] = useAdmin();
+    const [isAdmin,isLoadingAdmin] = useAdmin();
     console.log(isAdmin)
+      if (isLoadingAdmin) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <span className="text-3xl font-bold text-orange-600">Loading dashboard...</span>
+            </div>
+        );
+    }
     return (
         <div className="flex ">
             {/* side bar-------- */}
@@ -53,23 +60,18 @@ const DashBoard = () => {
                         :
                         <>
                             <li className="p-4 uppercase menu">
-                                <NavLink to={"/dashboard/cart"}>
+                                <NavLink to={"/dashboard/userHome"}>
                                     <FaHome></FaHome>
                                     User Home
                                 </NavLink>
                             </li>
                             <li className="p-4 uppercase menu">
-                                <NavLink to={"/dashboard/cart"}>
+                                <NavLink to={"/dashboard/reservation"}>
                                     <FaCalendar></FaCalendar>
                                     reservation
                                 </NavLink>
                             </li>
-                            <li className="p-4 uppercase menu">
-                                <NavLink to={"/dashboard/cart"}>
-                                    <FaHistory></FaHistory>
-                                    payment history
-                                </NavLink>
-                            </li>
+                           
 
                             <li className="p-4 uppercase menu">
                                 <NavLink to={"/dashboard/cart"}>
@@ -84,9 +86,9 @@ const DashBoard = () => {
                                 </NavLink>
                             </li>
                             <li className="p-4 uppercase menu">
-                                <NavLink to={"/dashboard/cart"}>
+                                <NavLink to={"/dashboard/paymentHistory"}>
                                     <FaList></FaList>
-                                    my booking
+                                    Payment History
                                 </NavLink>
                             </li>
                         </>

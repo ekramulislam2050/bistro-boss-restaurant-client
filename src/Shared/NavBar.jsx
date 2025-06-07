@@ -4,15 +4,24 @@ import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { IoCart } from "react-icons/io5";
 import useCart from "../Hook/useCart";
+import useAdmin from "../Hook/useAdmin";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
     const [cart]=useCart()
-    
+    const [isAdmin]=useAdmin()
     const navOptions = <>
         <li><NavLink className={"uppercase text-white text-[15px] font-medium"} to="/">Home</NavLink></li>
 
-        <li><NavLink className={"uppercase text-white text-[15px] font-medium"}>Contact Us</NavLink></li>
+        <li><NavLink className={"uppercase text-white text-[15px] font-medium"}>Contact Us</NavLink></li>  
+        
+        {
+            user && isAdmin && <li><NavLink className={"uppercase  text-white text-[15px] font-medium"} to={'/dashboard/adminHome'}>admin home</NavLink></li>
+        }
+        {
+            user && !isAdmin && <li><NavLink className={"uppercase  text-white text-[15px] font-medium"} to={'/dashboard/userHome'}>user home</NavLink></li>
+        }
+        
 
         <li><NavLink className={"uppercase  text-white text-[15px] font-medium"} to={'/dashboard/cart'}>Dashboard</NavLink></li>
 
