@@ -10,7 +10,7 @@ const PaymentHistory = () => {
     const [payments, setPayments] = useState([])
     useEffect(() => {
         if (user?.email) {
-            axiosSecure.get(`http://localhost:5000/payment/${user?.email}`)
+            axiosSecure.get(`https://bistro-boss-restaurant-server-drab.vercel.app/payment/${user?.email}`)
                 .then(res => {
                     setPayments(res.data)
                 })
