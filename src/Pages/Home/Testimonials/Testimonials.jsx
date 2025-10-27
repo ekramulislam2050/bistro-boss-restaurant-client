@@ -16,10 +16,11 @@ const Testimonials = () => {
     const [reviews, setReviews] = useState([])
     // const [reviewData, setReviewData] = useState()
     useEffect(() => {
-        fetch('https://bistro-boss-restaurant-server-drab.vercel.app/reviews')
+        fetch('http://localhost:5000/reviews')
             .then(res => res.json())
             .then(data => setReviews(data))
     }, [])
+    console.log("reviews=",reviews)
     return (
         <section className="py-10">
             <SectionTitle

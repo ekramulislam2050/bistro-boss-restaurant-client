@@ -15,8 +15,8 @@ const CheckOutForm = () => {
     const element = useElements()
     const axiosSecure = useAxiosSecure()
     const [cart, refetch] = useCart()
-    const navigate=useNavigate()
-
+    const navigate = useNavigate()
+    //  console.log("transactionId=",transactionId)
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
     const handleSubmit = async (e) => {
@@ -58,32 +58,39 @@ const CheckOutForm = () => {
         } else {
             if (paymentIntent.status === "succeeded") {
                 console.log("paymentIntent=>", paymentIntent)
-                setTransactionId(paymentIntent.id)
+                const tId = paymentIntent.id
+                setTransactionId(tId)
+                
+                // payment save to database-----------
+                const payment = {
+                    email: user.email,
+                    price: totalPrice,
+                    date: new Date(),//TODO:convert to utc time by using moment js
+                    cartIds: cart.map(item => item._id),
+                    itemIds: cart.map(item => item.itemId),
+                    status: "pending",
+                    transaction: tId,
+                }
+                const res = await axiosSecure.post("/payment", payment)
+                 console.log("for sslcz=",res.data)
+                refetch();
+                if (res.data?.paymentResult?.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate("/dashboard/paymentHistory")
+                }
             }
-        }
 
-        // payment save to database-----------
-        const payment = {
-            email: user.email,
-            price: totalPrice,
-            date: new Date(),//TODO:convert to utc time by using moment js
-            cartIds: cart.map(item => item._id),
-            itemIds: cart.map(item => item.itemId),
-            status: "pending"
-        }
-        const res = await axiosSecure.post("/payment", payment)
-        refetch();
-        if (res.data?.paymentResult?.insertedId) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
-            navigate("/dashboard/paymentHistory")
         }
     }
+
+
+
 
     useEffect(() => {
         if (totalPrice > 0) {
