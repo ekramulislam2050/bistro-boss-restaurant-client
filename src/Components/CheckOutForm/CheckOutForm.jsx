@@ -72,7 +72,7 @@ const CheckOutForm = () => {
                     transaction: tId,
                 }
                 const res = await axiosSecure.post("/payment", payment)
-                 console.log("for sslcz=",res.data)
+                
                 refetch();
                 if (res.data?.paymentResult?.insertedId) {
                     Swal.fire({
@@ -83,6 +83,7 @@ const CheckOutForm = () => {
                         timer: 1500
                     });
                     navigate("/dashboard/paymentHistory")
+                     
                 }
             }
 
@@ -124,6 +125,8 @@ const CheckOutForm = () => {
                         },
                     }}
                 />
+                 
+
                 <button type="submit" disabled={!stripe || !clientSecret} className="my-4 btn btn-primary">
                     Pay
                 </button>

@@ -20,6 +20,8 @@ import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentHistory from "../Pages/DashBoard/PaymentHistory/PaymentHistory";
 import AdminHome from "../Pages/DashBoard/AdminHome/AdminHome";
 import UserHome from "../Pages/DashBoard/UserHome/UserHome";
+import SslCommerzPayment from "../Pages/sslCommerzPayment/sslCommerzPayment";
+import SslCommerzPaymetFaild from "../Pages/SslCommerzPaymentFaild/SslCommerzPaymetFaild";
  
 
 export const router = createBrowserRouter([
@@ -72,6 +74,14 @@ export const router = createBrowserRouter([
             {
                 path:"/dashboard/paymentHistory",
                 element:<PaymentHistory></PaymentHistory>
+            },
+            {
+              path:"/dashboard/sslPayment/success/:tran_id",
+              element:<SslCommerzPayment></SslCommerzPayment>
+            },
+            {
+                path:"/dashboard/sslPayment/fail/:tran_id",
+                element:<SslCommerzPaymetFaild></SslCommerzPaymetFaild>
             },
             {
                 path:"/dashboard/userHome",
